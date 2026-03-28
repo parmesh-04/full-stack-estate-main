@@ -31,6 +31,7 @@ model Post {
   userId     String      @db.ObjectId
   postDetail PostDetail?
   savedPosts SavedPost[]
+  embedding  Float[]
 }
 
 enum Type {

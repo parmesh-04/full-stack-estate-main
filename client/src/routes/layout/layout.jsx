@@ -3,6 +3,7 @@ import Navbar from "../../components/navbar/Navbar";
 import { Navigate, Outlet } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import Chatbot from "../../components/chatbot/Chatbot";
 
 function Layout() {
   return (
@@ -13,6 +14,7 @@ function Layout() {
       <div className="content">
         <Outlet />
       </div>
+      <Chatbot />
     </div>
   );
 }
@@ -30,6 +32,7 @@ function RequireAuth() {
         <div className="content">
           <Outlet />
         </div>
+        <Chatbot />
       </div>
     );
   }

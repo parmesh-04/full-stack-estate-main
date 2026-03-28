@@ -7,7 +7,15 @@ export const singlePageLoader = async ({ request, params }) => {
 };
 export const listPageLoader = async ({ request, params }) => {
   const query = request.url.split("?")[1];
-  const postPromise = apiRequest("/posts?" + query);
+  const searchParams = new URLSearchParams(query);
+  
+  // If aiSearch param exists, call the AI RAG endpoint
+  if (searchParams.get("aiSearch")) {
+    const postPromise = apiRequest.post("/ai/search", { query: searchParams.get("aiSearch") });
+    return defer({ postResponse: postPromise });
+  }
+
+  const postPromise = apiRequest("/posts?" + (query || ""));
   return defer({
     postResponse: postPromise,
   });

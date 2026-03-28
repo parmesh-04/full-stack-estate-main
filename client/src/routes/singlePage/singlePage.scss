@@ -3,16 +3,17 @@
 .singlePage {
   display: flex;
   height: 100%;
+  background: var(--bg-secondary);
 
   @include md {
     flex-direction: column;
-    overflow: scroll;
+    overflow: auto;
   }
 
   .details {
     flex: 3;
     height: 100%;
-    overflow-y: scroll;
+    overflow-y: auto;
 
     @include md {
       flex: none;
@@ -46,13 +47,14 @@
             flex-direction: column;
             gap: 20px;
             h1 {
-              font-weight: 400;
+              font-weight: 600;
+              color: var(--text-dark);
             }
             .address {
               display: flex;
-              gap: 5px;
+              gap: 8px;
               align-items: center;
-              color: #888;
+              color: var(--text-light);
               font-size: 14px;
 
               img {
@@ -61,12 +63,14 @@
               }
             }
             .price {
-              padding: 5px;
-              background-color: rgba(254, 205, 81, 0.438);
-              border-radius: 5px;
+              padding: 12px 20px;
+              background: var(--gradient-card);
+              border: 1px solid rgba(99, 102, 241, 0.2);
+              border-radius: var(--border-radius);
               width: max-content;
               font-size: 20px;
-              font-weight: 300;
+              font-weight: 700;
+              color: var(--primary-color);
             }
           }
           .user {
@@ -75,13 +79,15 @@
             align-items: center;
             justify-content: center;
             gap: 20px;
-            padding: 0px 50px;
-            border-radius: 10px;
-            background-color: rgba(254, 205, 81, 0.209);
+            padding: 30px;
+            border-radius: var(--border-radius-lg);
+            background: var(--bg-primary);
+            box-shadow: var(--shadow-md);
             font-weight: 600;
+            border: 1px solid rgba(0, 0, 0, 0.05);
 
             @include sm {
-              padding: 20px 50px;
+              padding: 20px;
             }
 
             img {
@@ -89,22 +95,30 @@
               height: 50px;
               border-radius: 50%;
               object-fit: cover;
+              border: 3px solid var(--primary-color);
             }
           }
         }
         .bottom {
           margin-top: 50px;
-          color: #555;
-          line-height: 20px;
+          color: var(--text-light);
+          line-height: 1.6;
+          background: var(--bg-primary);
+          padding: 30px;
+          border-radius: var(--border-radius-lg);
+          box-shadow: var(--shadow-sm);
         }
       }
     }
   }
   .features {
     flex: 2;
-    background-color: #fcf5f3;
+    background: var(--bg-primary);
     height: 100%;
-    overflow-y: scroll;
+    overflow-y: auto;
+    border-radius: var(--border-radius-lg);
+    margin: 20px;
+    box-shadow: var(--shadow-md);
 
     @include md {
       flex: none;
@@ -113,10 +127,10 @@
     }
 
     .wrapper {
-      padding: 0px 20px;
+      padding: 30px;
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 30px;
 
       @include md {
         padding: 20px;
@@ -128,26 +142,42 @@
       }
 
       .title {
-        font-weight: bold;
-        font-size: 18px;
-        margin-bottom: 10px;
+        font-weight: 700;
+        font-size: 20px;
+        margin-bottom: 15px;
+        color: var(--text-dark);
       }
 
       .feature {
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 15px;
+        padding: 15px;
+        background: var(--bg-secondary);
+        border-radius: var(--border-radius);
+        transition: all var(--transition-base);
+
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: var(--shadow-sm);
+        }
 
         img {
-          background-color: rgba(254, 205, 81, 0.209);
+          background: var(--gradient-hero);
+          padding: 8px;
+          border-radius: 8px;
+          filter: brightness(0) invert(1);
         }
 
         .featureText {
           span {
-            font-weight: bold;
+            font-weight: 600;
+            color: var(--text-dark);
           }
           p {
             font-size: 14px;
+            color: var(--text-light);
+            margin: 4px 0 0 0;
           }
         }
       }
@@ -156,54 +186,84 @@
         display: flex;
         flex-direction: column;
         gap: 20px;
-        padding: 20px 10px;
-        background-color: white;
-        border-radius: 10px;
+        padding: 20px;
+        background: var(--bg-secondary);
+        border-radius: var(--border-radius-lg);
       }
       .listHorizontal {
         display: flex;
         justify-content: space-between;
-        padding: 20px 10px;
-        background-color: white;
-        border-radius: 10px;
+        padding: 20px;
+        background: var(--bg-secondary);
+        border-radius: var(--border-radius-lg);
       }
 
       .sizes {
         display: flex;
         justify-content: space-between;
+        gap: 15px;
 
         @include lg {
           font-size: 12px;
         }
 
         .size {
+          flex: 1;
           display: flex;
           align-items: center;
+          justify-content: center;
           gap: 10px;
-          background-color: white;
-          padding: 10px;
-          border-radius: 5px;
+          background: var(--bg-secondary);
+          padding: 15px;
+          border-radius: var(--border-radius);
+          text-align: center;
+          transition: all var(--transition-base);
+
+          &:hover {
+            background: var(--bg-tertiary);
+            transform: translateY(-2px);
+          }
         }
       }
 
       .mapContainer {
         width: 100%;
         height: 200px;
+        border-radius: var(--border-radius-lg);
+        overflow: hidden;
       }
 
       .buttons {
         display: flex;
         justify-content: space-between;
+        gap: 15px;
 
         button {
+          flex: 1;
           padding: 20px;
           display: flex;
           align-items: center;
-          gap: 5px;
-          background-color: white;
-          border: 1px solid #fece51;
-          border-radius: 5px;
+          justify-content: center;
+          gap: 8px;
+          background: var(--bg-primary);
+          border: 2px solid var(--primary-color);
+          border-radius: var(--border-radius);
           cursor: pointer;
+          font-weight: 600;
+          color: var(--primary-color);
+          transition: all var(--transition-base);
+
+          &:hover {
+            background: var(--gradient-hero);
+            color: white;
+            border-color: transparent;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+
+            img {
+              filter: brightness(0) invert(1);
+            }
+          }
 
           img {
             width: 16px;

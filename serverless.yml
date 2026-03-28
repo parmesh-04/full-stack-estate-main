@@ -1,0 +1,43 @@
+service: real-estate-api
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: us-east-1
+  stage: dev
+  environment:
+    NODE_ENV: production
+    DATABASE_URL: ${ssm:/real-estate-app/database-url~true}
+    JWT_SECRET: ${ssm:/real-estate-app/jwt-secret~true}
+    GOOGLE_AI_API_KEY: ${ssm:/real-estate-app/google-ai-key~true}
+    CLIENT_URL: https://your-domain.com
+
+functions:
+  app:
+    handler: app.handler
+    events:
+      - httpApi:
+          path: /{proxy+}
+          method: ANY
+
+plugins:
+  - serverless-offline
+  - serverless-dotenv-plugin
+
+custom:
+  serverless-offline:
+    httpPort: 8800
+    noPrependStageInUrl: true
+
+package:
+  patterns:
+    - '!node_modules/**'
+    - '!.git/**'
+    - '!src/**'
+    - '!README.md'
+    - '!package-lock.json'
+    - node_modules/**
+    - '!**/*.test.js'
+    - '!**/*.spec.js'

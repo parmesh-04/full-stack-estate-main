@@ -1,0 +1,27 @@
+service: full-stack-estate-api
+
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: us-east-1
+  environment:
+    DATABASE_URL: ${env:DATABASE_URL, ''}
+    JWT_SECRET_KEY: ${env:JWT_SECRET_KEY, ''}
+    CLIENT_URL: ${env:CLIENT_URL, ''}
+    GEMINI_API_KEY: ${env:GEMINI_API_KEY, ''}
+
+functions:
+  api:
+    handler: app.handler
+    events:
+      - http:
+          path: /
+          method: ANY
+          cors: true
+      - http:
+          path: /{proxy+}
+          method: ANY
+          cors: true
+
+plugins:
+  - serverless-offline

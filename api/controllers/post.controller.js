@@ -1,5 +1,6 @@
 import prisma from "../lib/prisma.js";
 import jwt from "jsonwebtoken";
+import { genAI } from "../lib/gemini.js";
 
 export const getPosts = async (req, res) => {
   const query = req.query;
@@ -81,6 +82,19 @@ export const addPost = async (req, res) => {
         },
       },
     });
+
+    try {
+      const embeddingModel = genAI.getGenerativeModel({ model: "gemini-embedding-2-preview" });
+      const textToEmbed = `${newPost.title} in ${newPost.city}. ${body.postDetail?.desc || ""} ${newPost.property} type: ${newPost.type} with ${newPost.bedroom} bedrooms and ${newPost.bathroom} bathrooms. Price: $${newPost.price}`;
+      const embedResult = await embeddingModel.embedContent(textToEmbed);
+      await prisma.post.update({
+        where: { id: newPost.id },
+        data: { embedding: embedResult.embedding.values }
+      });
+    } catch (embeddingError) {
+      console.error("Failed to generate embedding for post:", embeddingError);
+    }
+
     res.status(200).json(newPost);
   } catch (err) {
     console.log(err);

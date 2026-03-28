@@ -10,8 +10,9 @@ function NewPostPage() {
   const [value, setValue] = useState("");
   const [images, setImages] = useState([]);
   const [error, setError] = useState("");
+  const [isGenerating, setIsGenerating] = useState(false);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -51,6 +52,29 @@ function NewPostPage() {
     }
   };
 
+  const handleAIGenerate = async (e) => {
+    e.preventDefault();
+    setIsGenerating(true);
+    try {
+      const city = document.getElementById("city").value;
+      const type = document.querySelector('select[name="type"]').value;
+      const property = document.querySelector('select[name="property"]').value;
+      const bedroom = document.getElementById("bedroom").value;
+      const bathroom = document.getElementById("bathroom").value;
+      const price = document.getElementById("price").value;
+
+      const res = await apiRequest.post("/ai/generate-description", {
+        fields: { city, type, property, bedroom, bathroom, price }
+      });
+      setValue(res.data.description);
+    } catch (err) {
+      console.error(err);
+      setError("Failed to generate description");
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+
   return (
     <div className="newPostPage">
       <div className="formContainer">
@@ -70,7 +94,17 @@ function NewPostPage() {
               <input id="address" name="address" type="text" />
             </div>
             <div className="item description">
-              <label htmlFor="desc">Description</label>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "10px" }}>
+                <label htmlFor="desc" style={{ marginBottom: 0 }}>Description</label>
+                <button 
+                  type="button" 
+                  onClick={handleAIGenerate} 
+                  disabled={isGenerating} 
+                  style={{ padding: "5px 10px", backgroundColor: "#fece51", border: "none", cursor: "pointer", fontWeight: "bold", fontSize: "12px", borderRadius: "5px" }}
+                >
+                  {isGenerating ? "Generating..." : "✨ Auto-fill with AI"}
+                </button>
+              </div>
               <ReactQuill theme="snow" onChange={setValue} value={value} />
             </div>
             <div className="item">

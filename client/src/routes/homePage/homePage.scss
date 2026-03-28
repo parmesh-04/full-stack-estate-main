@@ -2,58 +2,156 @@
 
 .homePage {
   display: flex;
-  height: 100%;
+  height: calc(100vh - 100px);
+  position: relative;
+  overflow: hidden;
 
   .textContainer {
     flex: 3;
+    position: relative;
+    z-index: 2;
 
     .wrapper {
       padding-right: 100px;
       display: flex;
       flex-direction: column;
       justify-content: center;
-      gap: 50px;
+      gap: 60px;
       height: 100%;
+      position: relative;
 
       @include lg{
         padding-right: 50px;
+        gap: 40px;
       }
 
       @include md{
-        padding: 0;
+        padding: 0 30px;
+        gap: 30px;
       }
 
       @include sm{
         justify-content: flex-start;
+        padding-top: 60px;
+        gap: 40px;
       }
 
       .title {
-        font-size: 64px;
+        font-size: 72px;
+        font-weight: 900;
+        line-height: 1.1;
+        background: var(--gradient-hero);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        position: relative;
+        animation: fadeInUp 1s ease;
 
         @include lg {
+          font-size: 56px;
+        }
+
+        @include md {
           font-size: 48px;
+        }
+
+        @include sm {
+          font-size: 36px;
+        }
+
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: -10px;
+          left: 0;
+          width: 80px;
+          height: 4px;
+          background: var(--gradient-hero);
+          border-radius: 2px;
+        }
+      }
+
+      p {
+        font-size: 18px;
+        line-height: 1.8;
+        color: var(--text-light);
+        max-width: 600px;
+        animation: fadeInUp 1s ease 0.2s both;
+        font-weight: 400;
+
+        @include md {
+          font-size: 16px;
+        }
+
+        @include sm {
+          font-size: 15px;
         }
       }
 
       .boxes {
-        display: flex;
-        justify-content: space-between;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        animation: fadeInUp 1s ease 0.4s both;
 
         @include sm {
           display: none;
         }
 
-        h1 {
-          font-size: 36px;
+        .box {
+          background: var(--bg-primary);
+          padding: 30px 25px;
+          border-radius: var(--border-radius-lg);
+          box-shadow: var(--shadow-lg);
+          transition: all var(--transition-base);
+          text-align: center;
+          position: relative;
+          overflow: hidden;
+          border: 1px solid rgba(0, 0, 0, 0.05);
 
-          @include lg {
-            font-size: 32px;
+          &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--gradient-hero);
+            transform: scaleX(0);
+            transition: transform var(--transition-base);
           }
-        }
+          
+          &:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: var(--shadow-xl);
+            border-color: var(--primary-color);
 
-        h2 {
-          font-size: 20px;
-          font-weight: 300;
+            &::before {
+              transform: scaleX(1);
+            }
+          }
+
+          h1 {
+            font-size: 42px;
+            font-weight: 900;
+            background: var(--gradient-hero);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+
+            @include lg {
+              font-size: 36px;
+            }
+          }
+
+          h2 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+          }
         }
       }
     }
@@ -61,23 +159,63 @@
 
   .imgContainer {
     flex: 2;
-    background-color: #fcf5f3;
     position: relative;
     display: flex;
     align-items: center;
+    justify-content: center;
+    overflow: hidden;
 
     @include md {
       display: none;
     }
 
-    img {
-      width: 115%;
+    &::before {
+      content: '';
       position: absolute;
-      right: 0;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at center, rgba(99, 102, 241, 0.05) 0%, transparent 70%);
+      animation: float 6s ease-in-out infinite;
+    }
+
+    img {
+      width: 120%;
+      height: auto;
+      position: relative;
+      z-index: 1;
+      filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.1));
+      animation: float 8s ease-in-out infinite;
+      transition: transform var(--transition-slow);
+
+      &:hover {
+        transform: scale(1.05);
+      }
 
       @include lg {
-        width: 105%;
+        width: 110%;
       }
     }
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
   }
 }

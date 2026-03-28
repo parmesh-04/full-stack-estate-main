@@ -13,10 +13,10 @@ function HomePage() {
         <div className="wrapper">
           <h1 className="title">Find Real Estate & Get Your Dream Place</h1>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos
-            explicabo suscipit cum eius, iure est nulla animi consequatur
-            facilis id pariatur fugit quos laudantium temporibus dolor ea
-            repellat provident impedit!
+            Welcome to the future of real estate! Our platform elegantly combines 
+            modern property browsing with cutting-edge Artificial Intelligence. 
+            Whether you are looking to buy or rent, our AI assistant and 
+            smart search tools will help you find the perfect match with absolute ease.
           </p>
           <SearchBar />
           <div className="boxes">

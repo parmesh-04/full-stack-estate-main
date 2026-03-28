@@ -5,6 +5,7 @@ import { useSearchParams } from "react-router-dom";
 function Filter() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [query, setQuery] = useState({
+    aiSearch: searchParams.get("aiSearch") || "",
     type: searchParams.get("type") || "",
     city: searchParams.get("city") || "",
     property: searchParams.get("property") || "",
@@ -30,6 +31,17 @@ function Filter() {
         Search results for <b>{searchParams.get("city")}</b>
       </h1>
       <div className="top">
+        <div className="item">
+          <label htmlFor="aiSearch">AI Semantic Search ✨</label>
+          <input
+            type="text"
+            id="aiSearch"
+            name="aiSearch"
+            placeholder="Describe your ideal home... (e.g. A cozy apartment near the park)"
+            onChange={handleChange}
+            defaultValue={query.aiSearch}
+          />
+        </div>
         <div className="item">
           <label htmlFor="city">Location</label>
           <input
